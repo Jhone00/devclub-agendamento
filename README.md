@@ -3,8 +3,8 @@
 Este projeto foi desenvolvido como parte do desafio técnico para o processo seletivo do DevClub. Trata-se de uma aplicação web de agendamento de serviços (CRUD) com separação de responsabilidades entre Cliente e Administrador, validação de horários e persistência de dados.
 
 ## 🔗 Links do Projeto
-- **Deploy (Aplicação em Produção):** [Coloque seu link do Netlify aqui]
-- **Repositório GitHub:** [Coloque o link do repositório aqui]
+- **Deploy (Aplicação em Produção):** [https://agendamento-de-servicos-devclub.netlify.app/]
+- **Repositório GitHub:** [https://github.com/Jhone00/devclub-agendamento/tree/main]
 
 ---
 
