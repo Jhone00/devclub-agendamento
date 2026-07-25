@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevClub - Sistema de Agendamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TELA DE AUTENTICAÇÃO (LOGIN / CADASTRO) -->
+    <div id="authContainer" class="auth-wrapper">
+        <div class="auth-card">
+            <div class="brand-header">
+                <img src="assets/dev club.png" alt="Logo DevClub" class="brand-logo">
+                <h1>DevClub Agendamentos</h1>
+            </div>
+            
+            <!-- Formulário de Login -->
+            <form id="formLogin" onsubmit="realizarLogin(event)">
+                <div class="field">
+                    <label for="loginEmail">E-mail</label>
+                    <input type="email" id="loginEmail" required placeholder="seu@email.com">
+                </div>
+                <div class="field">
+                    <label for="loginSenha">Senha</label>
+                    <input type="password" id="loginSenha" required placeholder="Sua senha">
+                </div>
+                <button type="submit" class="btn-submit">Entrar</button>
+                <p class="auth-switch">Não tem uma conta? <span onclick="alternarTelaAuth('cadastro')">Cadastre-se</span></p>
+            </form>
+
+            <!-- Formulário de Cadastro -->
+            <form id="formCadastro" class="hidden" onsubmit="realizarCadastro(event)">
+                <div class="field">
+                    <label for="cadNome">Nome Completo</label>
+                    <input type="text" id="cadNome" required placeholder="Digite seu nome">
+                </div>
+                <div class="field">
+                    <label for="cadTelefone">Telefone / WhatsApp</label>
+                    <input type="tel" id="cadTelefone" required placeholder="(99) 99999-9999">
+                </div>
+                <div class="field">
+                    <label for="cadEmail">E-mail</label>
+                    <input type="email" id="cadEmail" required placeholder="seu@email.com">
+                </div>
+                <div class="field">
+                    <label for="cadSenha">Senha</label>
+                    <input type="password" id="cadSenha" required placeholder="Crie uma senha">
+                </div>
+                <button type="submit" class="btn-submit">Cadastrar</button>
+                <p class="auth-switch">Já tem uma conta? <span onclick="alternarTelaAuth('login')">Faça login</span></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- APLICAÇÃO PRINCIPAL (OCULTA ATÉ O LOGIN) -->
+    <div id="appContainer" class="hidden">
+        <header class="main-header">
+            <div class="header-brand">
+                <img src="assets/dev club.png" alt="Logo DevClub" class="brand-logo-small">
+                <h1>DevClub - Agendamentos</h1>
+            </div>
+            <nav class="nav-buttons">
+                <button onclick="mudarAba('cliente')" id="btnCliente" class="active">Área do Cliente</button>
+                <button onclick="mudarAba('admin')" id="btnAdmin" class="hidden">Painel Administrativo</button>
+                <button onclick="sairDaConta()" class="btn-sair">Sair</button>
+            </nav>
+        </header>
+
+        <main class="container">
+            
+            <!-- ÁREA DO CLIENTE -->
+            <section id="areaCliente" class="view active">
+                <h2>Novo Agendamento</h2>
+                
+                <form id="formAgendamento">
+                    <div class="field">
+                        <label for="servico">Serviço Desejado</label>
+                        <select id="servico" required>
+                            <option value="">Selecione...</option>
+                            <option value="Corte de Cabelo">Corte de Cabelo</option>
+                            <option value="Barba">Barba</option>
+                            <option value="Manicure">Manicure</option>
+                            <option value="Limpeza de Pele">Limpeza de Pele</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="horario">Horário Disponível</label>
+                        <select id="horario" required>
+                            <option value="">Escolha a data primeiro</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Confirmar Agendamento</button>
+                </form>
+
+                <div id="feedbackSucesso" class="feedback hidden">
+                    Agendamento realizado com sucesso!
+                </div>
+            </section>
+
+            <!-- ÁREA ADMINISTRATIVA -->
+            <section id="areaAdmin" class="view">
+                <h2>Painel de Controle</h2>
+
+                <div class="admin-controls">
+                    <div class="filter-box">
+                        <label for="filtroData">Filtrar por data:</label>
+                        <input type="date" id="filtroData" onchange="renderizarTabela()">
+                        <button onclick="limparFiltro()" class="btn-alt">Limpar</button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Telefone</th>
+                                <th>Serviço</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaCorpo">
+                            <!-- Injetado via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
